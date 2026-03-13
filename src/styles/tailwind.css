@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ─── CSS Variables ─── */
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C96A;
+  --gold-dim: #8B6F2E;
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --surface-2: #181818;
+  --border: rgba(201, 168, 76, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --foreground: #F5F5F0;
+  --muted: #71717A;
+  --muted-2: #3F3F46;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--foreground);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+.font-display {
+  font-family: 'Fraunces', serif;
+}
+
+/* ─── Film Grain Overlay ─── */
+.noise-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background-color: var(--gold-dim); }
+
+/* ─── Selection ─── */
+::selection { background: var(--gold); color: #000; }
+
+/* ─── Marquee ─── */
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 35s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Fade-in-up ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.35s; }
+.fade-up-delay-4 { transition-delay: 0.5s; }
+.fade-up-delay-5 { transition-delay: 0.65s; }
+.fade-up-delay-6 { transition-delay: 0.8s; }
+
+/* ─── Slide-in from left ─── */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── Slide-in from right ─── */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── Scale-in ─── */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Pulse gold ring ─── */
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
+}
+.pulse-gold {
+  animation: pulse-gold 2.5s ease-in-out infinite;
+}
+
+/* ─── Floating animation ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.float-anim {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Shimmer text ─── */
+@keyframes shimmer-text {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #C9A84C 0%, #E8C96A 30%, #fff8e1 50%, #E8C96A 70%, #C9A84C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 4s linear infinite;
+}
+
+/* ─── Glow border on hover ─── */
+.glow-border {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.glow-border:hover {
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.5), 0 0 30px rgba(201,168,76,0.12);
+  border-color: rgba(201,168,76,0.5) !important;
+}
+
+/* ─── Counter number animation ─── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-reveal {
+  animation: count-up 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ─── Cursor spotlight ─── */
+.cursor-spotlight {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* ─── Marquee hover pause ─── */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Testimonial card hover lift ─── */
+.testimonial-card {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-6px) rotate(0deg) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.2);
+  border-color: rgba(201,168,76,0.2) !important;
+}
+
+/* ─── Pricing card hover lift ─── */
+.pricing-card {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s ease;
+}
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.25);
+}
+
+/* ─── Process step icon spin on hover ─── */
+.icon-spin {
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.group:hover .icon-spin {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* ─── Reveal line ─── */
+@keyframes reveal-line {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.reveal-line {
+  animation: reveal-line 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ─── Gradient border animation ─── */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(201,168,76,0.2); }
+  50%       { border-color: rgba(201,168,76,0.6); }
+}
+.border-pulse {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* ─── Button ripple ─── */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.08);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.btn-ripple:hover::before {
+  transform: scaleX(1);
+}
+
+/* ─── Scroll progress bar ─── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #C9A84C, #E8C96A);
+  z-index: 9999;
+  transform-origin: left;
+  transition: width 0.1s linear;
+  opacity: 0.45;
+}
+
+/* ─── Gold shimmer on hover ─── */
+.gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.gold-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.12), transparent);
+  transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+.gold-shimmer:hover::after { left: 140%; }
+
+/* ─── Underline link ─── */
+.underline-gold {
+  position: relative;
+}
+.underline-gold::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.underline-gold:hover::after { width: 100%; }
+
+/* ─── Hide scrollbar for testimonial rail ─── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Service card border glow ─── */
+.card-glow {
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.card-glow:hover {
+  border-color: rgba(201,168,76,0.35);
+  box-shadow: 0 0 28px rgba(201,168,76,0.08);
+}
+
+/* ─── Gold gradient text ─── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Pricing card highlight ─── */
+.pricing-featured {
+  border: 1px solid rgba(201,168,76,0.5);
+  background: linear-gradient(145deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+}
+
+/* ─── Nav backdrop ─── */
+.nav-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10,10,10,0.85);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ─── Step connector line ─── */
+.step-line::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(100% + 0px);
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+}
+
+/* ─── Testimonial card rotation variants ─── */
+.rotate-neg-2 { transform: rotate(-2deg); }
+.rotate-pos-1 { transform: rotate(1deg); }
+.rotate-neg-1 { transform: rotate(-1deg); }
+.rotate-pos-2 { transform: rotate(2deg); }
+
+/* ─── FAQ accordion ─── */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.faq-answer.open {
+  max-height: 300px;
+}
+.faq-icon {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.faq-icon.rotated { transform: rotate(180deg); }
